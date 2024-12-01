@@ -4,7 +4,6 @@ import * as RefreshPlugin from '@rspack/plugin-react-refresh';
 const {
   ModuleFederationPlugin,
 } = require('@module-federation/enhanced/rspack');
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -70,7 +69,7 @@ export default defineConfig({
       name: 'headerBarApp',
       filename: 'headerBarRemote.js',
       exposes: {
-        './Header': './src/components/Header',
+        './header': './src/components/header',
       },
       shared: {
         react: { singleton: true, eager: true },
