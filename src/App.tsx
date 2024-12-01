@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { Button } from './components/ui/button';
+import Header from './components/header';
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return (
-    <div className="bg-white">
-      <Button variant="default">asdas</Button>
-    </div>
-  );
+  return <Header />;
 }
 
 export default App;

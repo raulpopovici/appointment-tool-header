@@ -1,6 +1,10 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
 import * as RefreshPlugin from '@rspack/plugin-react-refresh';
+const {
+  ModuleFederationPlugin,
+} = require('@module-federation/enhanced/rspack');
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -11,6 +15,12 @@ export default defineConfig({
   context: __dirname,
   entry: {
     main: './src/main.tsx',
+  },
+  devServer: {
+    port: 3001, // Port for the headerbar app
+  },
+  output: {
+    publicPath: 'http://localhost:3001/', // Headerbar app URL
   },
   resolve: {
     extensions: ['...', '.ts', '.tsx', '.jsx'],
@@ -45,12 +55,32 @@ export default defineConfig({
           },
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          rspack.CssExtractRspackPlugin.loader,
+          'css-loader',
+          'postcss-loader',
+        ],
+      },
     ],
   },
   plugins: [
+    new ModuleFederationPlugin({
+      name: 'headerBarApp',
+      filename: 'headerBarRemote.js',
+      exposes: {
+        './Header': './src/components/Header',
+      },
+      shared: {
+        react: { singleton: true, eager: true },
+        'react-dom': { singleton: true, eager: true },
+      },
+    }),
     new rspack.HtmlRspackPlugin({
       template: './index.html',
     }),
+    new rspack.CssExtractRspackPlugin({}),
     isDev ? new RefreshPlugin() : null,
   ].filter(Boolean),
   optimization: {
@@ -62,6 +92,6 @@ export default defineConfig({
     ],
   },
   experiments: {
-    css: true,
+    css: false,
   },
 });
