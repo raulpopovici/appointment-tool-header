@@ -22,7 +22,7 @@ export default defineConfig({
   output: {
     path: resolve(__dirname, 'public'), // Ensure output goes to the "public" directory
     filename: '[name].js', // Use entry name for output file names
-    publicPath: '/', // Ensure proper public path for static files
+    publicPath: 'auto', // Ensure proper public path for static files
   },
   resolve: {
     extensions: ['...', '.ts', '.tsx', '.jsx'],
