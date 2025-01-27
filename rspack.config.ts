@@ -4,6 +4,7 @@ import * as RefreshPlugin from '@rspack/plugin-react-refresh';
 const {
   ModuleFederationPlugin,
 } = require('@module-federation/enhanced/rspack');
+import { dirname, resolve } from 'path';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -19,7 +20,9 @@ export default defineConfig({
     port: 3001, // Port for the headerbar app
   },
   output: {
-    publicPath: 'http://localhost:3001/', // Headerbar app URL
+    path: resolve(__dirname, 'public'), // Ensure output goes to the "public" directory
+    filename: '[name].js', // Use entry name for output file names
+    publicPath: '/', // Ensure proper public path for static files
   },
   resolve: {
     extensions: ['...', '.ts', '.tsx', '.jsx'],
