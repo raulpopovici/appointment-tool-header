@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 
 const Header = ({ onButtonClick }: HeaderProps) => {
   return (
-    <div className="w-full bg-white h-16 border-0 shadow flex items-center">
+    <div className="w-full bg-white h-16 border-0 shadow flex items-center z-10 fixed">
       <div className="ml-8 flex grow">icon</div>
       <div className="mr-8 flex space-x-2">
         <Button
