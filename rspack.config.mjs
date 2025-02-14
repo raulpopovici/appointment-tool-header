@@ -1,10 +1,12 @@
 import { defineConfig } from '@rspack/cli';
 import { rspack } from '@rspack/core';
-import * as RefreshPlugin from '@rspack/plugin-react-refresh';
-const {
-  ModuleFederationPlugin,
-} = require('@module-federation/enhanced/rspack');
-import { dirname, resolve } from 'path';
+import RefreshPlugin from '@rspack/plugin-react-refresh';
+import { ModuleFederationPlugin } from '@module-federation/enhanced/rspack';
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -20,9 +22,8 @@ export default defineConfig({
     port: 3001, // Port for the headerbar app
   },
   output: {
-    publicPath:
-      'https://appointment-tool-header-mhwec5146-popovici-rauls-projects.vercel.app/', // Explicitly set public path
-    path: resolve(__dirname, 'public'),
+    publicPath: 'auto', // Explicitly set public path
+    path: path.resolve(__dirname, 'public'),
     filename: '[name].js',
   },
   resolve: {
@@ -95,6 +96,6 @@ export default defineConfig({
     ],
   },
   experiments: {
-    css: true,
+    css: false,
   },
 });
