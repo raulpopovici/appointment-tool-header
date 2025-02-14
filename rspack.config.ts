@@ -95,6 +95,6 @@ export default defineConfig({
     ],
   },
   experiments: {
-    css: false,
+    css: true,
   },
 });
