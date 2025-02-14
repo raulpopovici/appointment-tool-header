@@ -20,9 +20,10 @@ export default defineConfig({
     port: 3001, // Port for the headerbar app
   },
   output: {
-    path: resolve(__dirname, 'public'), // Ensure output goes to the "public" directory
-    filename: '[name].js', // Use entry name for output file names
-    publicPath: 'auto', // Ensure proper public path for static files
+    publicPath:
+      'https://appointment-tool-header-mhwec5146-popovici-rauls-projects.vercel.app/', // Explicitly set public path
+    path: resolve(__dirname, 'public'),
+    filename: '[name].js',
   },
   resolve: {
     extensions: ['...', '.ts', '.tsx', '.jsx'],
@@ -68,6 +69,11 @@ export default defineConfig({
     ],
   },
   plugins: [
+    new rspack.HtmlRspackPlugin({
+      template: './index.html',
+    }),
+    new rspack.CssExtractRspackPlugin({}),
+    isDev ? new RefreshPlugin() : null,
     new ModuleFederationPlugin({
       name: 'headerBarApp',
       filename: 'headerBarRemote.js',
@@ -79,11 +85,6 @@ export default defineConfig({
         'react-dom': { singleton: true, eager: true },
       },
     }),
-    new rspack.HtmlRspackPlugin({
-      template: './index.html',
-    }),
-    new rspack.CssExtractRspackPlugin({}),
-    isDev ? new RefreshPlugin() : null,
   ].filter(Boolean),
   optimization: {
     minimizer: [
