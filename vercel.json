@@ -1,0 +1,9 @@
+{
+  "public": true,
+  "headers": [
+    {
+      "source": "/headerBarRemote.js",
+      "headers": [{ "key": "Access-Control-Allow-Origin", "value": "*" }]
+    }
+  ]
+}
